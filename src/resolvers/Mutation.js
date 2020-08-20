@@ -56,9 +56,37 @@ async function post (parent, args, context) {
   return newLink
 }
 
+async function updateLink(parent, { id, url, description }, context) {
+  const userId = getUserId(context)
+  const updatedLink = context.prisma.link.update({
+    where: { id: +id },
+    data: { 
+      url,
+      description,
+      postedBy: {
+        connect: {
+          id: userId
+        }
+      }
+    }
+  })
+  return updatedLink
+}
+
+async function deleteLink(parent, { id }, context) {
+  const userId = getUserId(context)
+  const deletedLink = context.prisma.link.delete({
+    where: { id: +id }
+  })
+
+  return deletedLink
+}
+
 
 module.exports = {
   signup,
   login,
-  post
+  post,
+  updateLink,
+  deleteLink
 }

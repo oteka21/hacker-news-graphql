@@ -14,21 +14,6 @@ const resolvers = {
   // Query: {
   // },
   // Mutation: {
-    // updateLink: (parent, { id, url, description }, context) => {
-    //   const updatedLink = context.prisma.link.update({
-    //     where: { id: +id },
-    //     data: { url, description }
-    //   })
-
-    //   return updatedLink
-    // },
-    // deleteLink: (parent, { id }, context) => {
-    //   const deletedLink = context.prisma.link.delete({
-    //     where: { id: +id }
-    //   })
-
-    //   return deletedLink
-    // }
   // }
 }
 
