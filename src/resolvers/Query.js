@@ -1,7 +1,28 @@
 const { getUserId } = require('../utils')
 
-function feed(parent, args, context, info) {
-  return context.prisma.link.findMany()
+async function feed(parent, args, context, info) {
+  getUserId(context)
+  const where = args.filter
+  ? {
+    OR: [
+      { description: { contains: args.filter } },
+      { url : { contains: args.filter } }
+    ]
+  }
+  : {}
+  const links = await context.prisma.link.findMany({
+    where,
+    skip: args.skip,
+    take: args.take,
+    orderBy: args.orderBy
+  })
+
+  const count = await context.prisma.link.count({ where })
+
+  return {
+    links,
+    count
+  }
 }
 
 async function link(parent, {id}, context) {
