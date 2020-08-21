@@ -1,3 +1,8 @@
+  type Subscription {
+    newLink: Link
+    newVote: Vote
+  }
+  
   type Query{
     info: String!
     feed: [Link!]!
@@ -15,6 +20,14 @@
     signup(email: String!, password: String!, name: String!): AuthPayload
     "login a user"
     login(email: String!, password: String!): AuthPayload
+    "Add a vote"
+    vote(linkId: ID!): Vote
+  }
+
+  type Vote {
+    id: ID!
+    link: Link!
+    user: User!
   }
 
   type Link {
@@ -22,6 +35,7 @@
     description: String!
     url: String!
     postedBy: User
+    votes: [Vote!]!
   }
 
   type AuthPayload {
@@ -34,4 +48,5 @@
     name: String!
     email: String!
     links: [Link!]!
+    votes: [Vote!]!
   }

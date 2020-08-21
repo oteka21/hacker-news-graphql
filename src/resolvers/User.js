@@ -4,6 +4,11 @@ function links(parent, args, context){
   }).links()
 }
 
+function votes(parent, args, context){
+  return context.prisma.user.findOne({where: { id: parent.id } }).votes()
+}
+
 module.exports = {
-  links
+  links,
+  votes
 }
